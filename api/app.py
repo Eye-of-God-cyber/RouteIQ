@@ -31,7 +31,7 @@ import logging
 import random
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -202,7 +202,7 @@ def _db_update(scenario_id: int, stage: str, status: str = "optimising", **kwarg
         if sc:
             sc.current_stage = stage
             sc.status        = status
-            sc.updated_at    = datetime.utcnow()
+            sc.updated_at    = datetime.now(timezone.utc)
             for k, v in kwargs.items():
                 setattr(sc, k, v)
             s.add(sc)
